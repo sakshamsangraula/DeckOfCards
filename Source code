@@ -5,10 +5,20 @@ import java.util.ArrayList;
 public class DECKOFCARDS {
 
 	public static void main(String[] args) {
-		// print out 2 shuffled deck of cards
+		// print out 2 ordered (not shuffled) deck of cards
+		System.out.println("*************Ordered Cards*********");
+		
 		ArrayList<String> deck = getDeck(2);
 		showCards(deck);
+		System.out.println("\n");
 		
+		// shuffle the cards
+		System.out.println("*************Shuffled Cards*********");
+		shuffleDeck(deck);
+		// show the 2 shuffled deck of cards
+		showCards(deck);
+		
+		// Note: the cards are shuffled so 5 random cards are removed by the dealCards function
 		// print out 5 specific cards by calling the dealCards function
 		ArrayList<String> hand = dealCards(deck, 5);
 		System.out.println("");
