@@ -1,0 +1,122 @@
+package deckofcards;
+
+import java.util.ArrayList;
+
+public class DECKOFCARDS {
+
+	public static void main(String[] args) {
+		// print out 2 shuffled deck of cards
+		ArrayList<String> deck = getDeck(2);
+		showCards(deck);
+		
+		// print out 5 specific cards by calling the dealCards function
+		ArrayList<String> hand = dealCards(deck, 5);
+		System.out.println("");
+		showCards(hand);
+		System.out.println("");
+		
+		// print out the new size of the card after taking away 5 cards
+		System.out.println(deck.size());
+	
+
+	}
+	
+	// This method returns a new arraylist of all the cards in the 
+	// deck where number of decks is passed as an argument
+	public static ArrayList<String> getDeck (int numDecks)
+	{
+		// create a new arraylist called deck that will store the 
+		// all the cards
+		ArrayList<String> deck = new ArrayList<>();
+		// S refers to spades, C refers to Clubs, H refers to Hearts, and D refers to Diamonds
+		String[] suit = {"S", "C", "H", "D"};
+		String[] face = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+		
+		int idx = 0;
+		
+		// Loop through the number of decks passed in as argument
+		for(int i=0; i<numDecks; i++)
+		{
+			// loop through the suits in the outer loop and each 
+			// value of the face in the inner loop
+			for(int j=0; j<suit.length; j++)
+			{
+				for(int k=0; k<face.length; k++)
+				{
+					deck.add(face[k] + suit[j]);
+				}
+			}
+		}
+		return deck;
+	}
+	
+	// This method randomly shuffles the cards in the deck
+	public static void shuffleDeck (ArrayList<String> deck)
+	{
+		// run a loop from 0 to deck.size()
+		for(int i=0; i<deck.size(); i++)
+		{
+			// set index to a random number between 0 and deck.size()
+			int randNum = (int) (Math.random()*deck.size());
+			// set the current variable as temp
+			// set the value at current index to the value of the random index
+			// and set the value at the random index to the value of the current
+			// index(which is stored in temp. This makes the 3 way swap complete
+			String temp = deck.get(i);
+			deck.set(i, deck.get(randNum));
+			deck.set(randNum, temp);
+		}
+	}
+	
+	// This method displays the card in a neat and orderly way
+	// inserting a new line after each 13 cards and after 
+	// each completed deck
+	public static void showCards (ArrayList<String> deck)
+	{
+		// Loop through the arrayList
+		for(int i=0; i<deck.size(); i++)
+		{
+			// if i is a multiple of 13 then print a new line
+			if(i%13==0)
+			{
+				System.out.println();
+			}
+			// if i is a multiple of 52 then print a new line
+			if(i%52==0)
+			{
+				System.out.println();
+			}
+			// Print out the cards each followed by a tab so all
+			// the cards are formatted the same way 
+			System.out.print(deck.get(i) + "\t");
+		}
+	}
+	
+	// This card removes numCards from the original arraylist, adds it to a 
+	//new arraylist and returns that new arraylist
+	public static ArrayList<String> dealCards (ArrayList<String> deck, int numCards)
+	{
+		// create a new ArrayList
+		ArrayList <String> specificCards = new ArrayList<>();
+		// remove the cards upto numCards from the arraylist and add those 
+		// cards to a new arraylist
+		for(int i=0; i<numCards; i++)
+		{
+			// remove the card from the original arraylist and add it to 
+			// the specificCards arraylist
+			specificCards.add(deck.remove(i));
+			
+			// NOTE: after removing the index, the next index will take
+			// the value of the removed index so that index will be skipped as
+			// the loop increments. For example- when the value at index 0 is removed
+			// the value that was at index 1 becomes the first value, hence index 0
+			// then the loop is incremented, i becomes 1 and the value now 
+			// at index 0 is skipped
+		}
+		
+		// return specificCards arraylist
+		return specificCards;
+	}
+	
+
+}
